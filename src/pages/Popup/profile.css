@@ -1,0 +1,57 @@
+.your_name {
+  padding: 4px;
+  color: #454646;
+  flex: 1;
+  margin-left: 111px;
+  display: block;
+  padding-left: 8px !important;
+  border: solid 1px lightgrey !important;
+  border-radius: 5px !important;
+}
+
+.your_name:focus {
+  border: solid 1px lightgrey !important;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+.input-form {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.about_me {
+  margin: auto;
+  resize: none;
+  outline: none;
+  border: solid 1px lightgrey;
+  border-radius: 3px;
+  padding: 4px;
+  height: 70%;
+  color: #454646;
+}
+
+.generate_label {
+  align-self: center;
+  margin: auto;
+  width: 60%;
+  text-align: center;
+}
+.generate-button {
+  position: relative;
+  align-self: center;
+  justify-self: center;
+}
+.generate-wrapper {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+}
+
+.review-p {
+  font-weight: bold;
+}
