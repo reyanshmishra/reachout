@@ -1,6 +1,9 @@
 <img src="src/assets/img/icon-128.png" width="64"/>
 
 
+[Try ReachOut](https://chrome.google.com/webstore/detail/reachout/jmabnfpimkldhnonkdjbfklhhdgdijhk)
+
+
 Generate cold emails for recruiters on linkdIn.
 Introducing our groundbreaking AI-powered Chrome extension designed to revolutionize your job search experience. Our extension seamlessly generates personalized cold emails to recruiters, maximizing your chances of making a lasting impression and landing your dream job.
 
