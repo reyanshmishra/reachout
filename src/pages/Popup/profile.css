@@ -31,7 +31,7 @@
   border: solid 1px lightgrey;
   border-radius: 3px;
   padding: 4px;
-  height: 70%;
+  flex: 5;
   color: #454646;
 }
 
@@ -54,4 +54,23 @@
 
 .review-p {
   font-weight: bold;
+}
+
+.ok-wrapper {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.error {
+  color: red;
+  margin: 0;
+  margin-right: 14px;
+  font-size: 1.2em !important;
+}
+
+.loader-sty {
+  margin: 10px;
 }

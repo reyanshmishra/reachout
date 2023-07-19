@@ -4,7 +4,12 @@ const PREVIOUS_MAIL = 'PREVIOUS_MAIL';
 import GoogleIcon from './GoogleButton';
 import Profile from './Profile';
 import { isEmpty } from 'lodash';
-import { YOUR_NAME, YOUR_CONTACT_NO, YOUR_INTRODUCTION } from './Constants';
+import {
+  YOUR_NAME,
+  YOUR_CONTACT_NO,
+  YOUR_INTRODUCTION,
+  TOKEN,
+} from './Constants';
 
 const Popup = () => {
   const [loading, setLoading] = useState(true);
@@ -16,14 +21,20 @@ const Popup = () => {
   const [yourName, setYourName] = useState('');
   const [yourContactNo, setYourContactNo] = useState('');
   const [yourintroducton, setYourIntroducton] = useState('');
-
+  const [token, setToken] = useState('');
   const fullInformation =
-    !isEmpty(yourName) && !isEmpty(yourContactNo) && !isEmpty(yourintroducton);
+    (!isEmpty(yourName) &&
+      !isEmpty(yourContactNo) &&
+      !isEmpty(yourintroducton) &&
+      !isEmpty(token)) ||
+    false;
 
   useEffect(() => {
     const yname = localStorage.getItem(YOUR_NAME) || '';
     const ycontactNo = localStorage.getItem(YOUR_CONTACT_NO) || '';
     const yIntro = localStorage.getItem(YOUR_INTRODUCTION) || '';
+    const token = localStorage.getItem(TOKEN) || '';
+    setToken(token);
     setYourName(yname);
     setYourContactNo(ycontactNo);
     setYourIntroducton(yIntro);
@@ -39,15 +50,29 @@ const Popup = () => {
     setLoading(true);
     setEmail('');
     var myHeaders = new Headers();
+    let token = localStorage.getItem(TOKEN);
     myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append('Authorization', `Bearer ${token}`);
 
+    let content =
+      'Write mail to a recruiter using the given details: ' +
+      "\nRecruiter's name is " +
+      recruiterName +
+      '\n he is hiring for ' +
+      company +
+      '\n\nMy Resume details: \n' +
+      yourintroducton +
+      '\n Please make it as concise as you can and limit it to 100-110 words.';
     var raw = JSON.stringify({
-      recruiter_name: recruiterName,
-      company: company,
-      about_me: yourintroducton,
-      job_role: 'Software Engineer',
-      your_name: yourName,
-      your_no: yourContactNo,
+      model: 'gpt-3.5-turbo',
+      max_tokens: 180,
+      n: 1,
+      messages: [{ role: 'system', content: content }],
+      stop: null,
+      temperature: 1,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
     });
 
     var requestOptions = {
@@ -58,12 +83,10 @@ const Popup = () => {
     };
 
     try {
-      const response = await fetch(
-        'http://localhost:3002/api/user/scrap',
-        requestOptions
-      );
+      const url = 'https://api.openai.com/v1/chat/completions';
+      const response = await fetch(url, requestOptions);
       const result = await response.json();
-      setEmail(result?.answer);
+      setEmail(result?.choices?.[0]?.message?.content);
       setError(null);
       localStorage.setItem(PREVIOUS_MAIL, result?.answer);
     } catch (error) {
@@ -142,7 +165,7 @@ const Popup = () => {
   return (
     <>
       <div className="text-container">
-        {!isEmpty(email) > 0 && !showProfile && (
+        {!isEmpty(email) && !showProfile && (
           <textarea
             type="text"
             className="text-field"
@@ -168,21 +191,21 @@ const Popup = () => {
           {/* <GoogleIcon /> */}
           {!loading && (
             <>
-              <button
+              {/* <button
                 type="button"
                 onClick={getTheEmail}
                 disabled={loading}
                 className="copy-button generate-button"
               >
                 👨🏼‍🍳 Ask for Referral
-              </button>
+              </button> */}
               <button
                 type="button"
                 onClick={getTheEmail}
                 disabled={loading}
                 className="copy-button generate-button"
               >
-                👨🏼‍🍳 Ask for Opportunities
+                👨🏼‍🍳 Draft
               </button>
             </>
           )}
