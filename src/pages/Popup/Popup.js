@@ -22,6 +22,7 @@ const Popup = () => {
   const [yourContactNo, setYourContactNo] = useState('');
   const [yourintroducton, setYourIntroducton] = useState('');
   const [token, setToken] = useState('');
+
   const fullInformation =
     (!isEmpty(yourName) &&
       !isEmpty(yourContactNo) &&
@@ -38,12 +39,6 @@ const Popup = () => {
     setYourName(yname);
     setYourContactNo(ycontactNo);
     setYourIntroducton(yIntro);
-  }, []);
-
-  useEffect(() => {
-    if (!fullInformation) {
-      // setShowProfile(true);
-    }
   }, []);
 
   const getTheEmail = async () => {
@@ -134,6 +129,8 @@ const Popup = () => {
     const yname = localStorage.getItem(YOUR_NAME) || '';
     const ycontactNo = localStorage.getItem(YOUR_CONTACT_NO) || '';
     const yIntro = localStorage.getItem(YOUR_INTRODUCTION) || '';
+    const token = localStorage.getItem(TOKEN) || '';
+    setToken(token);
     setYourName(yname);
     setYourContactNo(ycontactNo);
     setYourIntroducton(yIntro);

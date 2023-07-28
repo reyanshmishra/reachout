@@ -14,7 +14,11 @@
     "128": "icon-128.png"
   },
   "permissions": [
-    "tabs"
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
   ],
   "content_scripts": [
     {
